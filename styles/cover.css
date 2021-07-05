@@ -20,6 +20,7 @@
     background-repeat: no-repeat;
     background-attachment: local;
     display: flex;
+    position: fixed;
     justify-content: center;
     align-items: center;
     /* position: fixed;  */
@@ -35,6 +36,9 @@
     flex-direction: column;
     justify-content: center;
 }
+.cover__title{
+    font-size: 30px;
+}
 .cover__transparent {
     width: 100%;
     height: 45%;
@@ -47,6 +51,7 @@
 
 .text-overflow {
     height: 170px;
+    height: fit-content;
 }
 
 .cross {

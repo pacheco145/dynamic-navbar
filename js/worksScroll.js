@@ -4,15 +4,11 @@ var workTitleToWhite = $(".cover__title--toWhite");
 var textOverflow = $(".text-overflow");
 var faja = $(".cover__transparent");
 
-// SET INIT CSS
-textOverflow.css({ overflow: "hidden" });
-cover.css({ position: "fixed" });
 
 // FIXED MEASURES
 var windowHeight = window.innerHeight;
 var textOverflowHeight = textOverflow.css("height");
 textOverflowHeight = Number(textOverflowHeight.split("px")[0]);
-// if (textOverflowHeight < 160) textOverflowHeight = 170
 var percentHeightTxtCover = textOverflowHeight / window.innerHeight;
 
 // SCROLL RELATED MEASURES
@@ -43,16 +39,25 @@ const setParagraph = (coverHeight, newScroll) => {
 const setHeadingColor = (coverHeight, newScroll) => {
     // y = (510 / windowHeight) * newScroll - 127.5
     let color = (510 / windowHeight) * newScroll - 128
-    if (color > 255) color = 255
+    if (color > 255 || newScroll > windowHeight) color = 255
+    // console.log(newScroll, 'and', windowHeight, 'and', color)
     let rgbValues = `rgb(${color},${color},${color})`;
-
-    if (coverHeight > 90) workTitleToWhite.css({ color: rgbValues });
+    workTitleToWhite.css({ color: rgbValues });
+    // if (coverHeight > 90) workTitleToWhite.css({ color: rgbValues });
 }
 
 const setHeadingSize = (newScroll) => {
-    var fontSize = (12 * newScroll) / (60 - windowHeight) + 30;
-    if (fontSize >= 28) coverHeading.css({ "font-size": fontSize })
-	else coverHeading.css({ "font-size": "28px" })
+    const initialFontSize = 30;
+    const finalFontSize = 28;
+    console.log(newScroll, 'and', windowHeight / 2)
+
+    let fontSize = (2 * (finalFontSize - initialFontSize) * newScroll) / windowHeight + initialFontSize
+    if (fontSize <= finalFontSize) fontSize = finalFontSize
+    coverHeading.css({ "font-size": fontSize })
+
+    // var fontSize = (12 * newScroll) / (60 - windowHeight) + 30;
+    // if (fontSize >= 28) coverHeading.css({ "font-size": fontSize })
+	// else coverHeading.css({ "font-size": "28px" })
 }
 
 const setFaja = (newScroll) => {
