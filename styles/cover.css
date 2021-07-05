@@ -52,6 +52,14 @@
 .text-overflow {
     height: 170px;
     height: fit-content;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+}
+
+.text-overflow p {
+    margin: 4px;
 }
 
 .cross {
@@ -60,6 +68,18 @@
     top: 17px;
     width: 25px;
     z-index: 4;
+    fill:none;
+    stroke-linecap:round;
+    stroke-miterlimit:10;
+    stroke-width:5px;
+}
+
+.cross--white {
+    stroke: white;
+}
+
+.cross--black {
+    stroke: black;
 }
 
 
