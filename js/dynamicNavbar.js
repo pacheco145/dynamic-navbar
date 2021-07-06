@@ -1,48 +1,64 @@
 // Personalize this measures as you want:
-const initialFontSize = 30;
-const finalFontSize = 28;
-const initCoverHeight = window.innerHeight;
-const navHeight = 60;
+let initialFontSize = 30;
+let finalFontSize = 24;
+let initCoverHeight = window.innerHeight;
+let navHeight = 60;
 const finalHeadingColor = {
     r: 255,
-    g: 201,
-    b: 112,
+    g: 255,
+    b: 255,
 }
 const initialHeadingColor = {
-    r: 69,
-    g: 91,
-    b: 153,
+    r: 71,
+    g: 64,
+    b: 86,
 }
+
+
+// Changes related to responsive window size
+if (window.innerWidth < 600) {
+    initialFontSize = 26
+    finalFontSize = 20
+}
+
 
 // Choose elements you want to change dynamically
 var cover = document.querySelector(".cover");
 var coverHeading = document.querySelector(".cover__title");
-var workTitleToWhite = document.querySelector(".cover__title--toWhite");
-var textOverflow = document.querySelector(".text-overflow");
-var faja = document.querySelector(".cover__transparent");
+var overflowElem = document.querySelector(".cover__overflow");
+var transparentElem = document.querySelector(".cover__transparent");
+
+
+
+
+
 
 
 // Don't change below this line
 
 // FIXED MEASURES
 var windowHeight = window.innerHeight;
-var initOverflowHeight = getComputedStyle(textOverflow).height
+var initOverflowHeight = getComputedStyle(overflowElem).height
 initOverflowHeight = Number(initOverflowHeight.split("px")[0]);
 var percentHeightTxtCover = initOverflowHeight / window.innerHeight;
 
 
 
 window.addEventListener('scroll', function (e) {
-    // console.log(percentHeightTxtCover)
+    // console.log(e)
+    setElements()
+});
 
+const setElements = () => {
+    
     var newScroll = window.pageYOffset
-    // var coverHeight = windowHeight - newScroll;
+
     setCover(newScroll)
     setParagraph(newScroll)
     setHeadingColor(newScroll)
     setHeadingSize(newScroll)
-    setFaja(newScroll)
-});
+    setTransparentElem(newScroll)
+}
 
 const setCover = (newScroll) => {
     let coverHeight = (navHeight - initCoverHeight) * newScroll / windowHeight + initCoverHeight
@@ -51,17 +67,17 @@ const setCover = (newScroll) => {
 }
 
 const setParagraph = (newScroll) => {
-    let textOverflowHeight = (- initOverflowHeight) * 2 * newScroll / initCoverHeight + initOverflowHeight;
-    var textOverflowOpacity = newScroll / (250 - windowHeight) + 1;
-    textOverflowOpacity = textOverflowOpacity.toFixed(2);
+    let overflowElemHeight = (- initOverflowHeight) * 2 * newScroll / initCoverHeight + initOverflowHeight;
+    var overflowElemOpacity = newScroll / (250 - windowHeight) + 1;
+    overflowElemOpacity = overflowElemOpacity.toFixed(2);
     
     if (newScroll < initCoverHeight)  {
-        textOverflow.style.height = `${textOverflowHeight}px`
-        textOverflow.style.opacity = `${textOverflowOpacity}`
+        overflowElem.style.height = `${overflowElemHeight}px`
+        overflowElem.style.opacity = `${overflowElemOpacity}`
     }
     else {
-        textOverflow.style.height = 0
-        textOverflow.style.opacity = 0
+        overflowElem.style.height = 0
+        overflowElem.style.opacity = 0
     }
 } 
 
@@ -71,7 +87,7 @@ const setHeadingColor = (newScroll) => {
     let colorB = setRGBValue(newScroll, initialHeadingColor.b, finalHeadingColor.b)
     // console.log(colorR, colorG, colorB)
     let rgbValues = `rgb(${colorR},${colorG},${colorB})`;
-    workTitleToWhite.style.color = rgbValues;
+    coverHeading.style.color = rgbValues;
 }
 
 
@@ -92,18 +108,12 @@ const setHeadingSize = (newScroll) => {
     
 }
 
-const setFaja = (newScroll) => {
-    var opacityFaja = newScroll / (250 - windowHeight) + 1;
-    opacityFaja = opacityFaja.toFixed(2);
-    if (opacityFaja >= 0) faja.style.opacity = opacityFaja
-    else faja.style.opacity = 0
+const setTransparentElem = (newScroll) => {
+    // To give initial or final opacity different from 0 or 1 better use color-opacity
+    var opacityTransparentElem = newScroll / (250 - windowHeight) + 1;
+    opacityTransparentElem = opacityTransparentElem.toFixed(2);
+    if (opacityTransparentElem >= 0) transparentElem.style.opacity = opacityTransparentElem
+    else transparentElem.style.opacity = 0
 }
 
-
-
-const initialSettings = () => {
-    setHeadingColor(0)
-    setHeadingSize(0)
-}
-
-document.onload = initialSettings()
+document.onload = setElements()

@@ -28,6 +28,7 @@
 }
 .cover__text {
     width: 40%;
+    min-width: 250px;
     transition: top 0.5s ease;
     -webkit-transition: top 1s ease;
     position: absolute;
@@ -38,6 +39,8 @@
 }
 .cover__title{
     font-size: 30px;
+    font-size: 10vw;
+    white-space: nowrap;
 }
 .cover__transparent {
     width: 100%;
@@ -49,16 +52,17 @@
 }
 /*.faja-blanca{height: 45%; background-color: rgba(255,255,255,0.8); transition: 2s 0.5s}*/
 
-.text-overflow {
-    height: 170px;
+.cover__overflow {
+    /* height: 170px; */
     height: fit-content;
     overflow: hidden;
+    font-size: 15px;
     display: flex;
     flex-direction: column;
     /* justify-content: center; */
 }
 
-.text-overflow p {
+.cover__overflow p {
     margin: 4px;
 }
 
@@ -98,7 +102,7 @@
     .workTitleSize {
         font-size: 30px;
     }
-    .TextoPortada p {
+    .cover__overflow p {
         font-size: 10.5px;
         padding: 0;
     }
